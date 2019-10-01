@@ -30,10 +30,10 @@ public struct StreamData: Unmarshaling {
     public let streamerUserName: String
     
     /// `gameId` specifies the ID of the game being streamed.
-    public let gameId: String?
+    public let gameId: Int?
 
     /// `communityIds` specifies the communities that this stream is a part of.
-    public let communityIds: [String]
+    public let communityIds: [String]?
     
     /// `streamType` specifies whether the stream is live or if an error occurred.
     public let streamType: StreamType
@@ -80,7 +80,7 @@ public struct StreamData: Unmarshaling {
             streamId = String(id)
             streamerId = String(channelId)
             streamerUserName = try object.value(for: Twitch.WebRequestKeysV5.channelName)
-            gameId = "" //doesn't exist on v5
+            gameId = -1 //doesn't exist on v5
             communityIds = [""] //doesn't exist on v5
             streamType = StreamType.live //default is live, doesn't have an error option
             title = try object.value(for: Twitch.WebRequestKeysV5.title)
